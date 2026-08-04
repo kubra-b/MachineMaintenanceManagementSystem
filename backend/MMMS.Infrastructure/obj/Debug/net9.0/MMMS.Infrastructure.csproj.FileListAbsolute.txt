@@ -1,0 +1,17 @@
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.AssemblyInfo.cs
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Infrastructure.deps.json
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Infrastructure.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Infrastructure.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Application.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Domain.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Application.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\bin\Debug\net9.0\MMMS.Domain.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Inf.A5850F5A.Up2Date
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\refint\MMMS.Infrastructure.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\ref\MMMS.Infrastructure.dll

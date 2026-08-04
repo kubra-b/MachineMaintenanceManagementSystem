@@ -1,0 +1,6 @@
+@MMMS.API_HostAddress = http://localhost:5226
+
+GET {{MMMS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,15 @@
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\bin\Debug\net9.0\MMMS.Application.deps.json
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\bin\Debug\net9.0\MMMS.Application.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\bin\Debug\net9.0\MMMS.Application.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\bin\Debug\net9.0\MMMS.Domain.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\bin\Debug\net9.0\MMMS.Domain.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.csproj.AssemblyReference.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.AssemblyInfoInputs.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.AssemblyInfo.cs
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.csproj.CoreCompileInputs.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.App.456ADB7C.Up2Date
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\refint\MMMS.Application.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\ref\MMMS.Application.dll

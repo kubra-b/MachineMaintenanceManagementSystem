@@ -1,0 +1,11 @@
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\bin\Debug\net9.0\MMMS.Domain.deps.json
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\bin\Debug\net9.0\MMMS.Domain.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\bin\Debug\net9.0\MMMS.Domain.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.AssemblyInfoInputs.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.AssemblyInfo.cs
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\refint\MMMS.Domain.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.pdb
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\ref\MMMS.Domain.dll

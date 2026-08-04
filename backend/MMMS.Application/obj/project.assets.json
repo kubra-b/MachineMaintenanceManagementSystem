@@ -1,0 +1,103 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0": {
+      "MMMS.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/MMMS.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MMMS.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MMMS.Domain/1.0.0": {
+      "type": "project",
+      "path": "../MMMS.Domain/MMMS.Domain.csproj",
+      "msbuildProject": "../MMMS.Domain/MMMS.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0": [
+      "MMMS.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Kübraaaa\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Kübraaaa\\OneDrive\\Desktop\\MMMS_Project\\backend\\MMMS.Application\\MMMS.Application.csproj",
+      "projectName": "MMMS.Application",
+      "projectPath": "C:\\Users\\Kübraaaa\\OneDrive\\Desktop\\MMMS_Project\\backend\\MMMS.Application\\MMMS.Application.csproj",
+      "packagesPath": "C:\\Users\\Kübraaaa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kübraaaa\\OneDrive\\Desktop\\MMMS_Project\\backend\\MMMS.Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Kübraaaa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "projectReferences": {
+            "C:\\Users\\Kübraaaa\\OneDrive\\Desktop\\MMMS_Project\\backend\\MMMS.Domain\\MMMS.Domain.csproj": {
+              "projectPath": "C:\\Users\\Kübraaaa\\OneDrive\\Desktop\\MMMS_Project\\backend\\MMMS.Domain\\MMMS.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net9.0": {
+        "targetAlias": "net9.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.316/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
