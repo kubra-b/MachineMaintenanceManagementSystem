@@ -9,3 +9,4 @@ C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\n
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\refint\MMMS.Domain.dll
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.pdb
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\ref\MMMS.Domain.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Domain\obj\Debug\net9.0\MMMS.Domain.sourcelink.json

@@ -13,3 +13,4 @@ C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\De
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\refint\MMMS.Application.dll
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.pdb
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\ref\MMMS.Application.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Application\obj\Debug\net9.0\MMMS.Application.sourcelink.json

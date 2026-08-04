@@ -1,3 +1,5 @@
+using MMMS.Domain.Enums;
+
 using Microsoft.EntityFrameworkCore;
 using MMMS.Domain.Entities;
 

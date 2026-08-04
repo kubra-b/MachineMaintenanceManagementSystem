@@ -1,26 +1,28 @@
-using Microsoft.EntityFrameworkCore;
-using MMMS.Infrastructure.Context;
+using MMMS.Application.Interfaces;
+using MMMS.Application.Services;
+using MMMS.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. DbContext Servis Kaydı (SQL Server Bağlantısı)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-// CORS Politikası (React frontend'inin API'ye erişebilmesi için)
+// Repository & Service Kayıtları
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IMachineService, MachineService>();
+
+// CORS Politikası
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -33,10 +35,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS Middleware Aktif Etme
+// CORS Middleweare
 app.UseCors("AllowReactApp");
 
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
