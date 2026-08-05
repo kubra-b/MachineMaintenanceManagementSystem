@@ -50,3 +50,27 @@
 
 .btn-secondary { background-color: #64748b; color: white; }
 .btn-primary { background-color: #3b82f6; color: white; }
+.btn-info {
+  background-color: #6366f1;
+  color: white;
+  margin-top: 8px;
+}
+
+.history-list {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.history-item p {
+  margin: 4px 0;
+}

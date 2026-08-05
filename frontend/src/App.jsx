@@ -4,7 +4,8 @@ import {
   getDashboardSummary, 
   reportFailure, 
   startMaintenance, 
-  completeMaintenance 
+  completeMaintenance,
+  getMachineHistory
 } from './services/api.js';
 import './App.css';
 
@@ -15,9 +16,10 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   
   // Modal durumları
-  const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance'
+  const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance', 'history'
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [formData, setFormData] = useState({ description: '', technicianName: '', note: '', failureType: 'Mekanik' });
+  const [historyLogs, setHistoryLogs] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -39,15 +41,26 @@ function App() {
     fetchData();
   }, [searchTerm]);
 
-  const openModal = (type, machine) => {
+  const openModal = async (type, machine) => {
     setSelectedMachine(machine);
     setActiveModal(type);
     setFormData({ description: '', technicianName: '', note: '', failureType: 'Mekanik' });
+
+    if (type === 'history') {
+      try {
+        const historyData = await getMachineHistory(machine.id);
+        setHistoryLogs(historyData || []);
+      } catch (err) {
+        console.error('Geçmiş çekilemedi:', err);
+        setHistoryLogs([]);
+      }
+    }
   };
 
   const closeModal = () => {
     setActiveModal(null);
     setSelectedMachine(null);
+    setHistoryLogs([]);
   };
 
   const handleSubmitAction = async (e) => {
@@ -147,6 +160,9 @@ function App() {
                     Bakımı Tamamla
                   </button>
                 )}
+                <button className="btn btn-info" onClick={() => openModal('history', machine)}>
+                  📋 Geçmişi Gör
+                </button>
               </div>
             </div>
           ))}
@@ -159,60 +175,79 @@ function App() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>{selectedMachine?.name} - {
               activeModal === 'failure' ? 'Arıza Bildirimi' : 
-              activeModal === 'startMaintenance' ? 'Bakım Başlat' : 'Bakımı Tamamla'
+              activeModal === 'startMaintenance' ? 'Bakım Başlat' : 
+              activeModal === 'completeMaintenance' ? 'Bakımı Tamamla' : 'İşlem Geçmişi'
             }</h3>
             
-            <form onSubmit={handleSubmitAction}>
-              {activeModal === 'failure' && (
-                <>
-                  <label>Arıza Tipi:</label>
-                  <select 
-                    value={formData.failureType} 
-                    onChange={(e) => setFormData({...formData, failureType: e.target.value})}
-                  >
-                    <option value="Mekanik">Mekanik</option>
-                    <option value="Elektrik">Elektrik</option>
-                    <option value="Yazılım">Yazılım</option>
-                    <option value="Genel">Genel</option>
-                  </select>
-
-                  <label>Açıklama:</label>
-                  <textarea 
-                    required 
-                    value={formData.description} 
-                    onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  />
-                </>
-              )}
-
-              {activeModal === 'startMaintenance' && (
-                <>
-                  <label>Teknisyen Adı:</label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={formData.technicianName} 
-                    onChange={(e) => setFormData({...formData, technicianName: e.target.value})}
-                  />
-                </>
-              )}
-
-              {activeModal === 'completeMaintenance' && (
-                <>
-                  <label>Bakım Notu / Yapılan İşlem:</label>
-                  <textarea 
-                    required 
-                    value={formData.note} 
-                    onChange={(e) => setFormData({...formData, note: e.target.value})}
-                  />
-                </>
-              )}
-
-              <div className="modal-actions">
-                <button type="button" className="btn btn-secondary" onClick={closeModal}>İptal</button>
-                <button type="submit" className="btn btn-primary">Kaydet</button>
+            {activeModal === 'history' ? (
+              <div className="history-list">
+                {historyLogs.length === 0 ? (
+                  <p>Henüz kayıtlı bir geçmiş bulunmuyor.</p>
+                ) : (
+                  historyLogs.map((log, idx) => (
+                    <div key={idx} className="history-item">
+                      <p><strong>Tarih:</strong> {new Date(log.createdDate || Date.now()).toLocaleString()}</p>
+                      <p><strong>Açıklama:</strong> {log.description || log.note || '-'}</p>
+                      <p><strong>İşlem Yapan:</strong> {log.technicianName || log.reportedBy || '-'}</p>
+                      <hr />
+                    </div>
+                  ))
+                )}
+                <button type="button" className="btn btn-secondary" onClick={closeModal}>Kapat</button>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmitAction}>
+                {activeModal === 'failure' && (
+                  <>
+                    <label>Arıza Tipi:</label>
+                    <select 
+                      value={formData.failureType} 
+                      onChange={(e) => setFormData({...formData, failureType: e.target.value})}
+                    >
+                      <option value="Mekanik">Mekanik</option>
+                      <option value="Elektrik">Elektrik</option>
+                      <option value="Yazılım">Yazılım</option>
+                      <option value="Genel">Genel</option>
+                    </select>
+
+                    <label>Açıklama:</label>
+                    <textarea 
+                      required 
+                      value={formData.description} 
+                      onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    />
+                  </>
+                )}
+
+                {activeModal === 'startMaintenance' && (
+                  <>
+                    <label>Teknisyen Adı:</label>
+                    <input 
+                      type="text" 
+                      required 
+                      value={formData.technicianName} 
+                      onChange={(e) => setFormData({...formData, technicianName: e.target.value})}
+                    />
+                  </>
+                )}
+
+                {activeModal === 'completeMaintenance' && (
+                  <>
+                    <label>Bakım Notu / Yapılan İşlem:</label>
+                    <textarea 
+                      required 
+                      value={formData.note} 
+                      onChange={(e) => setFormData({...formData, note: e.target.value})}
+                    />
+                  </>
+                )}
+
+                <div className="modal-actions">
+                  <button type="button" className="btn btn-secondary" onClick={closeModal}>İptal</button>
+                  <button type="submit" className="btn btn-primary">Kaydet</button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}

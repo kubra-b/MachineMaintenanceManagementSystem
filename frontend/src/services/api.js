@@ -43,3 +43,9 @@ export const completeMaintenance = async (id, technicianNote) => {
 };
 
 export default api;
+
+// Makine Arıza / Bakım Geçmişini Getirme
+export const getMachineHistory = async (id) => {
+  const response = await api.get(`/machines/${id}/history`);
+  return response.data;
+};
