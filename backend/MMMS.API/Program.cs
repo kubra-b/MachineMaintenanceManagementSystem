@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using MMMS.Application.Interfaces;
 using MMMS.Application.Services;
+using MMMS.Infrastructure.Context;
 using MMMS.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// 1. Veritabanı Bağlantısı (DbContext Kaydı)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Repository & Service Kayıtları
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -35,7 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS Middleweare
+// CORS Middleware
 app.UseCors("AllowReactApp");
 
 app.UseAuthorization();
