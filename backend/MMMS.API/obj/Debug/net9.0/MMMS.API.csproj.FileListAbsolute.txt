@@ -160,3 +160,4 @@ C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.API\obj\Debug\net9
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.API\obj\Debug\net9.0\MMMS.API.pdb
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.API\obj\Debug\net9.0\MMMS.API.genruntimeconfig.cache
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.API\obj\Debug\net9.0\ref\MMMS.API.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.API\obj\Debug\net9.0\MMMS.API.sourcelink.json

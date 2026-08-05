@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MMMS.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25964559904a829784eaa2efb4bc1dc5dc011e2c")]
 [assembly: System.Reflection.AssemblyProductAttribute("MMMS.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MMMS.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

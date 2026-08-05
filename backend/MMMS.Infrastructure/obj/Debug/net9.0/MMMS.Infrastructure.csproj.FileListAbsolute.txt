@@ -15,3 +15,4 @@ C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\refint\MMMS.Infrastructure.dll
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.pdb
 C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\ref\MMMS.Infrastructure.dll
+C:\Users\Kübraaaa\OneDrive\Desktop\MMMS_Project\backend\MMMS.Infrastructure\obj\Debug\net9.0\MMMS.Infrastructure.sourcelink.json

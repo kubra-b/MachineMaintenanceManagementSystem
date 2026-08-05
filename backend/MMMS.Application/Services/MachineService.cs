@@ -63,26 +63,27 @@ public class MachineService : IMachineService
     }
 
     // Durum Geçişi 1: Working -> Faulty (Arıza Bildirimi)
-    public async Task<bool> ReportFailureAsync(ReportFailureDto dto)
+   // Durum Geçişi 1: Working -> Faulty (Arıza Bildirimi)
+// Durum Geçişi 1: Working -> Faulty (Arıza Bildirimi)
+public async Task<bool> ReportFailureAsync(ReportFailureDto dto)
+{
+    var machine = await _machineRepository.GetByIdAsync(dto.MachineId);
+    if (machine == null) return false;
+
+    machine.CurrentStatus = MachineStatusEnum.Faulty;
+    _machineRepository.Update(machine);
+
+    var log = new MaintenanceLog
     {
-        var machine = await _machineRepository.GetByIdAsync(dto.MachineId);
-        if (machine == null) return false;
+        MachineId = dto.MachineId,
+        Description = dto.Description,
+        ReportedBy = dto.ReportedBy,
+        ReportedAt = DateTime.UtcNow
+    };
 
-        machine.CurrentStatus = MachineStatusEnum.Faulty;
-        _machineRepository.Update(machine);
-
-        var log = new MaintenanceLog
-        {
-            MachineId = dto.MachineId,
-            FailureType = dto.GetFailureType(),
-            Description = dto.Description,
-            ReportedBy = dto.ReportedBy,
-            ReportedAt = DateTime.UtcNow
-        };
-
-        await _logRepository.AddAsync(log);
-        return true;
-    }
+    await _logRepository.AddAsync(log);
+    return true;
+}
 
     // Durum Geçişi 2: Faulty -> UnderMaintenance (Bakıma Alma)
     public async Task<bool> StartMaintenanceAsync(int machineId, string technicianName)
