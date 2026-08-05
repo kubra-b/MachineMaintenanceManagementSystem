@@ -49,3 +49,8 @@ export const getMachineHistory = async (id) => {
   const response = await api.get(`/machines/${id}/history`);
   return response.data;
 };
+// Yeni Makine Ekleme
+export const createMachine = async (machineData) => {
+  const response = await api.post('/machines', machineData);
+  return response.data;
+};

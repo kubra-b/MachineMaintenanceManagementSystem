@@ -74,3 +74,25 @@
 .history-item p {
   margin: 4px 0;
 }
+
+.toolbar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn-add {
+  background-color: #10b981;
+  color: white;
+  width: auto;
+  padding: 0 20px;
+  white-space: nowrap;
+}

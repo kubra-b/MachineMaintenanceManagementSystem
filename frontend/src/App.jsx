@@ -5,7 +5,8 @@ import {
   reportFailure, 
   startMaintenance, 
   completeMaintenance,
-  getMachineHistory
+  getMachineHistory,
+  createMachine
 } from './services/api.js';
 import './App.css';
 
@@ -16,9 +17,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   
   // Modal durumları
-  const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance', 'history'
+  const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance', 'history', 'createMachine'
   const [selectedMachine, setSelectedMachine] = useState(null);
-  const [formData, setFormData] = useState({ description: '', technicianName: '', note: '', failureType: 'Mekanik' });
+  const [formData, setFormData] = useState({ description: '', technicianName: '', note: '', failureType: 'Mekanik', machineName: '', machineCode: '' });
   const [historyLogs, setHistoryLogs] = useState([]);
 
   const fetchData = async () => {
@@ -41,12 +42,12 @@ function App() {
     fetchData();
   }, [searchTerm]);
 
-  const openModal = async (type, machine) => {
+  const openModal = async (type, machine = null) => {
     setSelectedMachine(machine);
     setActiveModal(type);
-    setFormData({ description: '', technicianName: '', note: '', failureType: 'Mekanik' });
+    setFormData({ description: '', technicianName: '', note: '', failureType: 'Mekanik', machineName: '', machineCode: '' });
 
-    if (type === 'history') {
+    if (type === 'history' && machine) {
       try {
         const historyData = await getMachineHistory(machine.id);
         setHistoryLogs(historyData || []);
@@ -77,6 +78,12 @@ function App() {
         await startMaintenance(selectedMachine.id, formData.technicianName);
       } else if (activeModal === 'completeMaintenance') {
         await completeMaintenance(selectedMachine.id, formData.note);
+      } else if (activeModal === 'createMachine') {
+        await createMachine({
+          name: formData.machineName,
+          code: formData.machineCode,
+          currentStatus: 0
+        });
       }
       closeModal();
       fetchData();
@@ -120,14 +127,18 @@ function App() {
         </div>
       </div>
 
-      {/* Arama Barı */}
-      <div className="search-bar">
+      {/* Arama ve Ekleme Barı */}
+      <div className="toolbar">
         <input
           type="text"
+          className="search-input"
           placeholder="Makine adı veya kodu ile ara..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <button className="btn btn-add" onClick={() => openModal('createMachine')}>
+          + Yeni Makine Ekle
+        </button>
       </div>
 
       {/* Makine Listesi */}
@@ -173,10 +184,13 @@ function App() {
       {activeModal && (
         <div className="modal-backdrop" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{selectedMachine?.name} - {
-              activeModal === 'failure' ? 'Arıza Bildirimi' : 
-              activeModal === 'startMaintenance' ? 'Bakım Başlat' : 
-              activeModal === 'completeMaintenance' ? 'Bakımı Tamamla' : 'İşlem Geçmişi'
+            <h3>{
+              activeModal === 'createMachine' ? 'Yeni Makine Ekle' :
+              `${selectedMachine?.name} - ${
+                activeModal === 'failure' ? 'Arıza Bildirimi' : 
+                activeModal === 'startMaintenance' ? 'Bakım Başlat' : 
+                activeModal === 'completeMaintenance' ? 'Bakımı Tamamla' : 'İşlem Geçmişi'
+              }`
             }</h3>
             
             {activeModal === 'history' ? (
@@ -197,6 +211,28 @@ function App() {
               </div>
             ) : (
               <form onSubmit={handleSubmitAction}>
+                {activeModal === 'createMachine' && (
+                  <>
+                    <label>Makine Adı:</label>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="Örn: CNC Dokuma Tezgahı 01"
+                      value={formData.machineName} 
+                      onChange={(e) => setFormData({...formData, machineName: e.target.value})}
+                    />
+
+                    <label>Makine Kodu:</label>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="Örn: MAC-104"
+                      value={formData.machineCode} 
+                      onChange={(e) => setFormData({...formData, machineCode: e.target.value})}
+                    />
+                  </>
+                )}
+
                 {activeModal === 'failure' && (
                   <>
                     <label>Arıza Tipi:</label>
