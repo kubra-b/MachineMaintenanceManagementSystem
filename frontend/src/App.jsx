@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import { 
   getMachines, 
   getDashboardSummary, 
@@ -6,10 +7,11 @@ import {
   startMaintenance, 
   completeMaintenance,
   getMachineHistory,
-  createMachine
+  createMachine,
+  updateMachine,
+  deleteMachine
 } from './services/api.js';
 import './App.css';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 function App() {
   const [machines, setMachines] = useState([]);
@@ -19,7 +21,7 @@ function App() {
   const [selectedDepartment, setSelectedDepartment] = useState('');
   
   // Modal durumları
-  const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance', 'history', 'createMachine'
+  const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance', 'history', 'createMachine', 'editMachine'
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [formData, setFormData] = useState({ description: '', technicianName: '', note: '', failureType: 'Mekanik', machineName: '', machineCode: '' });
   const [historyLogs, setHistoryLogs] = useState([]);
@@ -28,7 +30,7 @@ function App() {
     try {
       setLoading(true);
       const [machinesData, summaryData] = await Promise.all([
-        getMachines(null, searchTerm),
+        getMachines(selectedDepartment || null, searchTerm),
         getDashboardSummary()
       ]);
       setMachines(machinesData);
@@ -40,19 +42,26 @@ function App() {
     }
   };
 
- useEffect(() => {
-  fetchData();
-}, [searchTerm, selectedDepartment]);
+  useEffect(() => {
+    fetchData();
+  }, [searchTerm, selectedDepartment]);
 
   const openModal = async (type, machine = null) => {
     setSelectedMachine(machine);
     setActiveModal(type);
-    setFormData({ description: '', technicianName: '', note: '', failureType: 'Mekanik', machineName: '', machineCode: '' });
-
-const [machinesData, summaryData] = await Promise.all([
-  getMachines(selectedDepartment || null, searchTerm),
-  getDashboardSummary()
-]);
+    
+    if (type === 'editMachine' && machine) {
+      setFormData({ 
+        description: '', 
+        technicianName: '', 
+        note: '', 
+        failureType: 'Mekanik', 
+        machineName: machine.name, 
+        machineCode: machine.code 
+      });
+    } else {
+      setFormData({ description: '', technicianName: '', note: '', failureType: 'Mekanik', machineName: '', machineCode: '' });
+    }
 
     if (type === 'history' && machine) {
       try {
@@ -69,6 +78,17 @@ const [machinesData, summaryData] = await Promise.all([
     setActiveModal(null);
     setSelectedMachine(null);
     setHistoryLogs([]);
+  };
+
+  const handleDeleteMachine = async (machineId) => {
+    if (window.confirm('Bu makineyi silmek istediğinize emin misiniz?')) {
+      try {
+        await deleteMachine(machineId);
+        fetchData();
+      } catch (err) {
+        alert('Makine silinirken hata oluştu.');
+      }
+    }
   };
 
   const handleSubmitAction = async (e) => {
@@ -90,6 +110,13 @@ const [machinesData, summaryData] = await Promise.all([
           name: formData.machineName,
           code: formData.machineCode,
           currentStatus: 0
+        });
+      } else if (activeModal === 'editMachine') {
+        await updateMachine(selectedMachine.id, {
+          id: selectedMachine.id,
+          name: formData.machineName,
+          code: formData.machineCode,
+          currentStatus: selectedMachine.currentStatus
         });
       }
       closeModal();
@@ -133,6 +160,7 @@ const [machinesData, summaryData] = await Promise.all([
           <p>{summary.inMaintenanceMachines}</p>
         </div>
       </div>
+
       {/* İstatistik Grafiği */}
       <div className="chart-container">
         <h3>📊 Makine Durum Dağılımı</h3>
@@ -172,16 +200,6 @@ const [machinesData, summaryData] = await Promise.all([
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="btn btn-add" onClick={() => openModal('createMachine')}>
-          {/* Arama ve Ekleme Barı */}
-      <div className="toolbar">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Makine adı veya kodu ile ara..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
         
         <select 
           className="department-select"
@@ -196,11 +214,6 @@ const [machinesData, summaryData] = await Promise.all([
         </select>
 
         <button className="btn btn-add" onClick={() => openModal('createMachine')}>
-          + Yeni Makine Ekle
-        </button>
-      </div>
-
-
           + Yeni Makine Ekle
         </button>
       </div>
@@ -235,9 +248,18 @@ const [machinesData, summaryData] = await Promise.all([
                     Bakımı Tamamla
                   </button>
                 )}
-                <button className="btn btn-info" onClick={() => openModal('history', machine)}>
-                  📋 Geçmişi Gör
-                </button>
+                
+                <div className="card-sub-actions">
+                  <button className="btn btn-info" onClick={() => openModal('history', machine)}>
+                    📋 Geçmiş
+                  </button>
+                  <button className="btn btn-edit" onClick={() => openModal('editMachine', machine)}>
+                    ✏️ Düzenle
+                  </button>
+                  <button className="btn btn-delete" onClick={() => handleDeleteMachine(machine.id)}>
+                    🗑️ Sil
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -250,6 +272,7 @@ const [machinesData, summaryData] = await Promise.all([
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>{
               activeModal === 'createMachine' ? 'Yeni Makine Ekle' :
+              activeModal === 'editMachine' ? 'Makine Bilgilerini Düzenle' :
               `${selectedMachine?.name} - ${
                 activeModal === 'failure' ? 'Arıza Bildirimi' : 
                 activeModal === 'startMaintenance' ? 'Bakım Başlat' : 
@@ -275,7 +298,7 @@ const [machinesData, summaryData] = await Promise.all([
               </div>
             ) : (
               <form onSubmit={handleSubmitAction}>
-                {activeModal === 'createMachine' && (
+                {(activeModal === 'createMachine' || activeModal === 'editMachine') && (
                   <>
                     <label>Makine Adı:</label>
                     <input 

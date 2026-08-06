@@ -120,3 +120,23 @@
   cursor: pointer;
   min-width: 160px;
 }
+.card-sub-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.card-sub-actions .btn {
+  font-size: 0.75rem;
+  padding: 6px 8px;
+}
+
+.btn-edit {
+  background-color: #0284c7;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc2626;
+  color: white;
+}
