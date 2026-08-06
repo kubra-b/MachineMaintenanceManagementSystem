@@ -9,12 +9,14 @@ import {
   createMachine
 } from './services/api.js';
 import './App.css';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 function App() {
   const [machines, setMachines] = useState([]);
   const [summary, setSummary] = useState({ totalMachines: 0, workingMachines: 0, faultyMachines: 0, inMaintenanceMachines: 0 });
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState('');
   
   // Modal durumları
   const [activeModal, setActiveModal] = useState(null); // 'failure', 'startMaintenance', 'completeMaintenance', 'history', 'createMachine'
@@ -38,14 +40,19 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [searchTerm]);
+ useEffect(() => {
+  fetchData();
+}, [searchTerm, selectedDepartment]);
 
   const openModal = async (type, machine = null) => {
     setSelectedMachine(machine);
     setActiveModal(type);
     setFormData({ description: '', technicianName: '', note: '', failureType: 'Mekanik', machineName: '', machineCode: '' });
+
+const [machinesData, summaryData] = await Promise.all([
+  getMachines(selectedDepartment || null, searchTerm),
+  getDashboardSummary()
+]);
 
     if (type === 'history' && machine) {
       try {
@@ -126,6 +133,35 @@ function App() {
           <p>{summary.inMaintenanceMachines}</p>
         </div>
       </div>
+      {/* İstatistik Grafiği */}
+      <div className="chart-container">
+        <h3>📊 Makine Durum Dağılımı</h3>
+        <div style={{ width: '100%', height: 260 }}>
+          <ResponsiveContainer>
+            <PieChart>
+              <Pie
+                data={[
+                  { name: 'Çalışıyor', value: summary.workingMachines },
+                  { name: 'Arızalı', value: summary.faultyMachines },
+                  { name: 'Bakımda', value: summary.inMaintenanceMachines },
+                ]}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={90}
+                paddingAngle={5}
+                dataKey="value"
+              >
+                <Cell key="cell-0" fill="#10b981" />
+                <Cell key="cell-1" fill="#ef4444" />
+                <Cell key="cell-2" fill="#f59e0b" />
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
       {/* Arama ve Ekleme Barı */}
       <div className="toolbar">
@@ -137,6 +173,34 @@ function App() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button className="btn btn-add" onClick={() => openModal('createMachine')}>
+          {/* Arama ve Ekleme Barı */}
+      <div className="toolbar">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Makine adı veya kodu ile ara..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        
+        <select 
+          className="department-select"
+          value={selectedDepartment} 
+          onChange={(e) => setSelectedDepartment(e.target.value)}
+        >
+          <option value="">Tüm Departmanlar</option>
+          <option value="1">Dokuma</option>
+          <option value="2">İplik</option>
+          <option value="3">Boyahane</option>
+          <option value="4">Kalite Kontrol</option>
+        </select>
+
+        <button className="btn btn-add" onClick={() => openModal('createMachine')}>
+          + Yeni Makine Ekle
+        </button>
+      </div>
+
+
           + Yeni Makine Ekle
         </button>
       </div>
