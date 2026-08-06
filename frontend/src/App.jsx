@@ -134,6 +134,18 @@ function App() {
       default: return <span className="badge">Bilinmiyor</span>;
     }
   };
+  const getPriorityBadge = (priority) => {
+  switch (priority) {
+    case 'Yüksek':
+      return <span className="priority-badge priority-high">🔥 Yüksek Öncelik</span>;
+    case 'Orta':
+      return <span className="priority-badge priority-medium">⚠️ Orta Öncelik</span>;
+    case 'Düşük':
+      return <span className="priority-badge priority-low">🟢 Düşük Öncelik</span>;
+    default:
+      return null;
+  }
+};
 
   return (
     <div className="container">
@@ -192,7 +204,9 @@ function App() {
       </div>
 
       {/* Arama ve Ekleme Barı */}
-      <div className="toolbar">
+      <div className="toolbar"><button className="btn btn-export" onClick={exportToCSV}>
+  📥 CSV İndir
+</button>
         <input
           type="text"
           className="search-input"
@@ -248,7 +262,37 @@ function App() {
                     Bakımı Tamamla
                   </button>
                 )}
-                
+                {activeModal === 'failure' && (
+  <>
+    <label>Arıza Tipi:</label>
+    <select 
+      value={formData.failureType} 
+      onChange={(e) => setFormData({...formData, failureType: e.target.value})}
+    >
+      <option value="Mekanik">Mekanik</option>
+      <option value="Elektrik">Elektrik</option>
+      <option value="Yazılım">Yazılım</option>
+      <option value="Genel">Genel</option>
+    </select>
+
+    <label>Öncelik Seviyesi:</label>
+    <select 
+      value={formData.priority || 'Orta'} 
+      onChange={(e) => setFormData({...formData, priority: e.target.value})}
+    >
+      <option value="Düşük">Düşük</option>
+      <option value="Orta">Orta</option>
+      <option value="Yüksek">Yüksek</option>
+    </select>
+
+    <label>Açıklama:</label>
+    <textarea 
+      required 
+      value={formData.description} 
+      onChange={(e) => setFormData({...formData, description: e.target.value})}
+    />
+  </>
+)}
                 <div className="card-sub-actions">
                   <button className="btn btn-info" onClick={() => openModal('history', machine)}>
                     📋 Geçmiş
@@ -376,6 +420,26 @@ function App() {
       )}
     </div>
   );
+  const exportToCSV = () => {
+  const headers = ['ID', 'Makine Adı', 'Kod', 'Durum'];
+  const rows = machines.map(m => [
+    m.id,
+    `"${m.name}"`,
+    `"${m.code}"`,
+    m.currentStatus === 0 ? 'Çalışıyor' : m.currentStatus === 1 ? 'Arızalı' : 'Bakımda'
+  ]);
+
+  const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' 
+    + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', `makine_listesi_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 }
 
 export default App;
