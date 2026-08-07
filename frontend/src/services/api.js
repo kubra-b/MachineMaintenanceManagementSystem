@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Backend port numaranı terminalde çalışan HTTPS adresine göre güncelle (örn: 7189 veya 5001)
-const API_BASE_URL = 'https://localhost:7189/api'; 
+const API_BASE_URL = 'http://localhost:5226/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

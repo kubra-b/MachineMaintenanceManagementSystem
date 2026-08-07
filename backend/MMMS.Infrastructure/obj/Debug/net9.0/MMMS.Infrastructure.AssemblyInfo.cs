@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MMMS.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99b01672dec548aeacd2134c277ff58fe41cfe7a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b23c6cd29aec7ce850cf9d07dc0c1ed3d0a076c")]
 [assembly: System.Reflection.AssemblyProductAttribute("MMMS.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MMMS.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
