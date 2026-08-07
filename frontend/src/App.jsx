@@ -146,6 +146,33 @@ function App() {
       return null;
   }
 };
+// App bileşeni içinde, return'den ÖNCE yer almalı:
+const exportToCSV = () => {
+  const headers = ['ID', 'Makine Adı', 'Kod', 'Durum'];
+  const rows = machines.map(m => [
+    m.id,
+    `"${m.name}"`,
+    `"${m.code}"`,
+    m.currentStatus === 0 ? 'Çalışıyor' : m.currentStatus === 1 ? 'Arızalı' : 'Bakımda'
+  ]);
+
+  const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' 
+    + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', `makine_listesi_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+return (
+  <div className="container">
+    {/* JSX içeriğin burada yer alır */}
+  </div>
+);
 
   return (
     <div className="container">
@@ -420,26 +447,8 @@ function App() {
       )}
     </div>
   );
-  const exportToCSV = () => {
-  const headers = ['ID', 'Makine Adı', 'Kod', 'Durum'];
-  const rows = machines.map(m => [
-    m.id,
-    `"${m.name}"`,
-    `"${m.code}"`,
-    m.currentStatus === 0 ? 'Çalışıyor' : m.currentStatus === 1 ? 'Arızalı' : 'Bakımda'
-  ]);
+ 
 
-  const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' 
-    + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement('a');
-  link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `makine_listesi_${new Date().toISOString().slice(0,10)}.csv`);
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
 }
 
 export default App;

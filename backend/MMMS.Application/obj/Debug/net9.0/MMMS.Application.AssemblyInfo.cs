@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MMMS.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d91d338a8f5de8cdc69c77a8ed3fdc15b0e0fecf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99b01672dec548aeacd2134c277ff58fe41cfe7a")]
 [assembly: System.Reflection.AssemblyProductAttribute("MMMS.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MMMS.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
