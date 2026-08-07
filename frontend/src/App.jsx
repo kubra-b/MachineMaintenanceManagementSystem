@@ -25,6 +25,14 @@ function App() {
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [formData, setFormData] = useState({ description: '', technicianName: '', note: '', failureType: 'Mekanik', priority: 'Orta', machineName: '', machineCode: '' });
   const [historyLogs, setHistoryLogs] = useState([]);
+  const [notification, setNotification] = useState(null); // { type: 'success' | 'error', message: '' }
+
+const showNotification = (message, type = 'success') => {
+  setNotification({ message, type });
+  setTimeout(() => {
+    setNotification(null);
+  }, 3000);
+};
 
   const fetchData = async () => {
     try {
@@ -102,51 +110,57 @@ function App() {
     setHistoryLogs([]);
   };
 
-  const handleDeleteMachine = async (machineId) => {
-    if (window.confirm('Bu makineyi silmek istediğinize emin misiniz?')) {
-      try {
-        await deleteMachine(machineId);
-        fetchData();
-      } catch (err) {
-        alert('Makine silinirken hata oluştu.');
-      }
-    }
-  };
-
-  const handleSubmitAction = async (e) => {
-    e.preventDefault();
+ const handleDeleteMachine = async (machineId) => {
+  if (window.confirm('Bu makineyi silmek istediğinize emin misiniz?')) {
     try {
-      if (activeModal === 'failure') {
-        await reportFailure({
-          machineId: selectedMachine.id,
-          failureType: formData.failureType,
-          description: formData.description,
-          reportedBy: 'Operatör'
-        });
-      } else if (activeModal === 'startMaintenance') {
-        await startMaintenance(selectedMachine.id, formData.technicianName);
-      } else if (activeModal === 'completeMaintenance') {
-        await completeMaintenance(selectedMachine.id, formData.note);
-      } else if (activeModal === 'createMachine') {
-        await createMachine({
-          name: formData.machineName,
-          code: formData.machineCode,
-          currentStatus: 0
-        });
-      } else if (activeModal === 'editMachine') {
-        await updateMachine(selectedMachine.id, {
-          id: selectedMachine.id,
-          name: formData.machineName,
-          code: formData.machineCode,
-          currentStatus: selectedMachine.currentStatus
-        });
-      }
-      closeModal();
+      await deleteMachine(machineId);
+      showNotification('Makine başarıyla silindi!', 'success');
       fetchData();
     } catch (err) {
-      alert('İşlem sırasında bir hata oluştu.');
+      showNotification('Makine silinirken bir hata oluştu.', 'error');
     }
-  };
+  }
+};
+
+const handleSubmitAction = async (e) => {
+  e.preventDefault();
+  try {
+    if (activeModal === 'failure') {
+      await reportFailure({
+        machineId: selectedMachine.id,
+        failureType: formData.failureType,
+        description: formData.description,
+        reportedBy: 'Operatör'
+      });
+      showNotification('Arıza kaydı oluşturuldu!', 'success');
+    } else if (activeModal === 'startMaintenance') {
+      await startMaintenance(selectedMachine.id, formData.technicianName);
+      showNotification('Makine bakıma alındı.', 'success');
+    } else if (activeModal === 'completeMaintenance') {
+      await completeMaintenance(selectedMachine.id, formData.note);
+      showNotification('Bakım başarıyla tamamlandı.', 'success');
+    } else if (activeModal === 'createMachine') {
+      await createMachine({
+        name: formData.machineName,
+        code: formData.machineCode,
+        currentStatus: 0
+      });
+      showNotification('Yeni makine eklendi.', 'success');
+    } else if (activeModal === 'editMachine') {
+      await updateMachine(selectedMachine.id, {
+        id: selectedMachine.id,
+        name: formData.machineName,
+        code: formData.machineCode,
+        currentStatus: selectedMachine.currentStatus
+      });
+      showNotification('Makine bilgileri güncellendi.', 'success');
+    }
+    closeModal();
+    fetchData();
+  } catch (err) {
+    showNotification('İşlem gerçekleştirilemedi.', 'error');
+  }
+};
 
   const getStatusBadge = (status) => {
     switch (status) {
@@ -159,6 +173,12 @@ function App() {
 
   return (
     <div className="container">
+      {notification && (
+  <div className={`toast-notification toast-${notification.type}`}>
+    {notification.type === 'success' ? '✅ ' : '❌ '}
+    {notification.message}
+  </div>
+)}
       <header className="header">
         <h1>⚙️ Makine Arıza & Bakım Takip Sistemi</h1>
       </header>
