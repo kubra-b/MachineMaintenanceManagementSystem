@@ -56,6 +56,11 @@ const showNotification = (message, type = 'success') => {
   }, [searchTerm, selectedDepartment]);
 
   const exportToCSV = () => {
+    const handleResetFilters = () => {
+  setSearchTerm('');
+  setSelectedDepartment('');
+  setStatusFilter(null);
+};
     const headers = ['ID', 'Makine Adı', 'Kod', 'Durum'];
    const filteredMachines = machines.filter(machine => {
   if (statusFilter !== null && machine.currentStatus !== statusFilter) {
@@ -267,6 +272,11 @@ const handleSubmitAction = async (e) => {
           <option value="3">Boyahane</option>
           <option value="4">Kalite Kontrol</option>
         </select>
+        {(searchTerm || selectedDepartment || statusFilter !== null) && (
+          <button className="btn btn-clear" onClick={handleResetFilters}>
+            🔄 Filtreleri Temizle
+          </button>
+        )}
 
         <button className="btn btn-add" onClick={() => openModal('createMachine')}>
           + Yeni Makine Ekle
