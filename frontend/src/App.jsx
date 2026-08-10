@@ -288,12 +288,25 @@ const handleSubmitAction = async (e) => {
       </div>
 
       {/* Makine Listesi */}
+      {/* Makine Listesi */}
       {loading ? (
         <div className="loading">Yükleniyor...</div>
+      ) : filteredMachines.length === 0 ? (
+        <div className="empty-state">
+          <div className="empty-icon">🔍</div>
+          <h3>Eşleşen Makine Bulunamadı</h3>
+          <p>Arama kriterlerinize veya seçili filtrelere uygun herhangi bir makine kaydı yok.</p>
+          {(searchTerm || selectedDepartment || statusFilter !== null) && (
+            <button className="btn btn-clear" onClick={handleResetFilters}>
+              🔄 Tüm Filtreleri Temizle
+            </button>
+          )}
+        </div>
       ) : (
         <div className="machine-grid">
-          {machines.map((machine) => (
+          {filteredMachines.map((machine) => (
             <div key={machine.id} className="machine-card">
+              {/* Mevcut makine kartı içeriğin aynen kalıyor */}
               <div className="card-header">
                 <h3>{machine.name}</h3>
                 {getStatusBadge(machine.currentStatus)}
