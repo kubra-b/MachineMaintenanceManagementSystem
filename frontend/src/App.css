@@ -292,3 +292,50 @@
     box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
   }
 }
+/* Skeleton Loading Efekti */
+.skeleton-card {
+  pointer-events: none;
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+.skeleton-title,
+.skeleton-text,
+.skeleton-btn {
+  background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 60%;
+  margin-bottom: 16px;
+}
+
+.skeleton-text {
+  height: 14px;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.skeleton-text.short {
+  height: 14px;
+  width: 40%;
+  margin-bottom: 20px;
+}
+
+.skeleton-btn {
+  height: 36px;
+  width: 100%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -305,7 +305,16 @@ const getStatusBadge = (status) => {
       {/* Makine Listesi */}
       {/* Makine Listesi */}
       {loading ? (
-        <div className="loading">Yükleniyor...</div>
+        <div className="machine-grid">
+          {[1, 2, 3, 4].map((n) => (
+            <div key={n} className="machine-card skeleton-card">
+              <div className="skeleton-title"></div>
+              <div className="skeleton-text"></div>
+              <div className="skeleton-text short"></div>
+              <div className="skeleton-btn"></div>
+            </div>
+          ))}
+        </div>
       ) : filteredMachines.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">🔍</div>
@@ -321,7 +330,6 @@ const getStatusBadge = (status) => {
         <div className="machine-grid">
           {filteredMachines.map((machine) => (
             <div key={machine.id} className="machine-card">
-              {/* Mevcut makine kartı içeriğin aynen kalıyor */}
               <div className="card-header">
                 <h3>{machine.name}</h3>
                 {getStatusBadge(machine.currentStatus)}
@@ -362,7 +370,6 @@ const getStatusBadge = (status) => {
           ))}
         </div>
       )}
-
       {/* Pop-up / Modal Formu */}
       {activeModal && (
         <div className="modal-backdrop" onClick={closeModal}>
