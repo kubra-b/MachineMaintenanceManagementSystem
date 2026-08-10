@@ -166,13 +166,28 @@ const handleSubmitAction = async (e) => {
     showNotification('İşlem gerçekleştirilemedi.', 'error');
   }
 };
-
-  const getStatusBadge = (status) => {
+const getStatusBadge = (status) => {
     switch (status) {
-      case 0: return <span className="badge badge-success">Çalışıyor</span>;
-      case 1: return <span className="badge badge-danger">Arızalı</span>;
-      case 2: return <span className="badge badge-warning">Bakımda</span>;
-      default: return <span className="badge">Bilinmiyor</span>;
+      case 0:
+        return (
+          <span className="badge badge-success">
+            <span className="status-dot dot-success"></span> Çalışıyor
+          </span>
+        );
+      case 1:
+        return (
+          <span className="badge badge-danger">
+            <span className="status-dot dot-danger"></span> Arızalı
+          </span>
+        );
+      case 2:
+        return (
+          <span className="badge badge-warning">
+            <span className="status-dot dot-warning"></span> Bakımda
+          </span>
+        );
+      default:
+        return <span className="badge">Bilinmiyor</span>;
     }
   };
 
