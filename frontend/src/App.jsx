@@ -19,6 +19,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [statusFilter, setStatusFilter] = useState(null); // null (tümü), 0 (çalışıyor), 1 (arızalı), 2 (bakımda)
   
   // Modal durumları
   const [activeModal, setActiveModal] = useState(null);
@@ -56,13 +57,12 @@ const showNotification = (message, type = 'success') => {
 
   const exportToCSV = () => {
     const headers = ['ID', 'Makine Adı', 'Kod', 'Durum'];
-    const rows = machines.map(m => [
-      m.id,
-      `"${m.name}"`,
-      `"${m.code}"`,
-      m.currentStatus === 0 ? 'Çalışıyor' : m.currentStatus === 1 ? 'Arızalı' : 'Bakımda'
-    ]);
-
+   const filteredMachines = machines.filter(machine => {
+  if (statusFilter !== null && machine.currentStatus !== statusFilter) {
+    return false;
+  }
+  return true;
+});
     const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' 
       + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
 
@@ -184,20 +184,33 @@ const handleSubmitAction = async (e) => {
       </header>
 
       {/* Özet Kartları */}
+    {/* Özet Kartları */}
       <div className="summary-cards">
-        <div className="card card-total">
+        <div 
+          className={`card card-total ${statusFilter === null ? 'card-active' : ''}`}
+          onClick={() => setStatusFilter(null)}
+        >
           <h3>Toplam Makine</h3>
           <p>{summary.totalMachines}</p>
         </div>
-        <div className="card card-working">
+        <div 
+          className={`card card-working ${statusFilter === 0 ? 'card-active' : ''}`}
+          onClick={() => setStatusFilter(0)}
+        >
           <h3>Çalışan</h3>
           <p>{summary.workingMachines}</p>
         </div>
-        <div className="card card-faulty">
+        <div 
+          className={`card card-faulty ${statusFilter === 1 ? 'card-active' : ''}`}
+          onClick={() => setStatusFilter(1)}
+        >
           <h3>Arızalı</h3>
           <p>{summary.faultyMachines}</p>
         </div>
-        <div className="card card-maintenance">
+        <div 
+          className={`card card-maintenance ${statusFilter === 2 ? 'card-active' : ''}`}
+          onClick={() => setStatusFilter(2)}
+        >
           <h3>Bakımda</h3>
           <p>{summary.inMaintenanceMachines}</p>
         </div>
