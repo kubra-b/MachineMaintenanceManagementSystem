@@ -1,9 +1,11 @@
 using MMMS.Domain.Enums;
 
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore; 
+
 using MMMS.Domain.Entities;
 
 namespace MMMS.Infrastructure.Context;
+
 
 public class AppDbContext : DbContext
 {
@@ -14,6 +16,7 @@ public class AppDbContext : DbContext
     public DbSet<Department> Departments { get; set; }
     public DbSet<Machine> Machines { get; set; }
     public DbSet<MaintenanceLog> MaintenanceLogs { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -47,7 +50,7 @@ public class AppDbContext : DbContext
             entity.Property(l => l.FailureType).IsRequired().HasMaxLength(100);
             entity.Property(l => l.ReportedBy).IsRequired().HasMaxLength(100);
 
-            // Makine Silindiğinde Arıza Geçmişi de Temizlensin (Cascade)
+            // Makine Silindiğinde Arıza Geçmişi de Temizlensin (Cascade) konfigürasyonu
             entity.HasOne(l => l.Machine)
                   .WithMany(m => m.MaintenanceLogs)
                   .HasForeignKey(l => l.MachineId)

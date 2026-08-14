@@ -1,5 +1,6 @@
 namespace MMMS.Domain.Enums;
 
+
 public enum MachineStatusEnum
 {
     Working = 1,          // 🟢 Çalışıyor

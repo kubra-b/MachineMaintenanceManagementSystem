@@ -8,6 +8,6 @@ public class Department
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    // Navigation Property: Bir departmanda birden fazla makine olabilir
+    // Navigation Property: Bir departmanda birden fazla makine olabilir bu nedenle ICollection kullanıyoruz.
     public ICollection<Machine> Machines { get; set; } = new List<Machine>();
 }

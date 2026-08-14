@@ -2,6 +2,7 @@ using MMMS.Domain.Enums;
 
 namespace MMMS.Application.DTOs;
 
+
 public class MachineDto
 {
     public int Id { get; set; }

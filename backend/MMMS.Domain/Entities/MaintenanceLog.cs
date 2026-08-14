@@ -1,7 +1,8 @@
 using MMMS.Domain.Enums;
 
 namespace MMMS.Domain.Entities;
-
+ 
+ 
 public class MaintenanceLog
 {
     public int Id { get; set; }

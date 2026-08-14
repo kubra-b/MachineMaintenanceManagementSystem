@@ -2,6 +2,7 @@ using MMMS.Application.DTOs;
 
 namespace MMMS.Application.Interfaces;
 
+
 public interface IMachineService
 {
     Task<IEnumerable<MachineDto>> GetMachinesAsync(int? departmentId, string? searchTerm);
