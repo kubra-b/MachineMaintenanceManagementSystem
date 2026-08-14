@@ -1,18 +1,25 @@
 using Microsoft.EntityFrameworkCore;
+
 using MMMS.Application.Interfaces;
+
 using MMMS.Infrastructure.Context;
+
 using System.Linq.Expressions;
 
 namespace MMMS.Infrastructure.Repositories;
+
+
 
 public class Repository<T> : IRepository<T> where T : class
 {
     protected readonly AppDbContext _context;
 
+
     public Repository(AppDbContext context)
     {
         _context = context;
     }
+
 
     public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
 

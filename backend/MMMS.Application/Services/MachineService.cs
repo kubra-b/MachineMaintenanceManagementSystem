@@ -1,7 +1,11 @@
 using MMMS.Application.DTOs;
+
 using MMMS.Application.Interfaces;
+
 using MMMS.Domain.Entities;
+
 using MMMS.Domain.Enums;
+
 
 namespace MMMS.Application.Services;
 
@@ -62,8 +66,6 @@ public class MachineService : IMachineService
         };
     }
 
-    // Durum Geçişi 1: Working -> Faulty (Arıza Bildirimi)
-   // Durum Geçişi 1: Working -> Faulty (Arıza Bildirimi)
 // Durum Geçişi 1: Working -> Faulty (Arıza Bildirimi)
 public async Task<bool> ReportFailureAsync(ReportFailureDto dto)
 {
